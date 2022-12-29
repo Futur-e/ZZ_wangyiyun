@@ -6,8 +6,12 @@
     <el-menu-item index="2">
       <router-link to="/playlist">歌单</router-link>
     </el-menu-item>
-    <el-menu-item index="3" >排行榜</el-menu-item>
-    <el-menu-item index="4">歌手</el-menu-item>
+    <el-menu-item index="3" >
+      <router-link to="/ranklist">排行榜</router-link>
+    </el-menu-item>
+    <el-menu-item index="4">
+      <router-link to="/songer">歌手</router-link>
+    </el-menu-item>
   </el-menu>
   <router-view></router-view>
 </template>

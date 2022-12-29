@@ -1,12 +1,12 @@
 <template>
   <div class="box" >
-    <div class="left">
-      <span @click="showHid">{{current}}&nbsp;<i class="el-icon-arrow-right"></i></span>
+    <div class="left" @click="showHid">
+      <span >{{current}}&nbsp;<i class="el-icon-arrow-right"></i></span>
     </div>
     <div class="hid" v-show="!showhid">
-      <div class="showBox">
+      <div class="showBox" @mouseleave="showhid=true">
         <span
-            v-for="(list,index) in allTags" :key="index"
+            v-for="(list,index) in props.allTags" :key="index"
             :class="current === list.name ? 'active':''"
             @click="changeCurrent(list)"
         >{{list.name}}</span>
@@ -29,11 +29,9 @@ export default {
   name:'Xtags',
   props:['hotTags','allTags'],
   setup(props,{emit}){
-    const current = ref()
-    const allTags = ref([])
+    const current = ref([])
     const showhid = ref(true)
     current.value = props.hotTags[0].name
-    allTags.value = props.allTags
     emit('getTagList',current.value)
     const showHid = ()=>{
       showhid.value = !showhid.value
@@ -46,8 +44,8 @@ export default {
       current,
       showHid,
       showhid,
-      allTags,
-      changeCurrent
+      changeCurrent,
+      props
     }
   }
 }
@@ -81,7 +79,7 @@ span{
   width: 350px;
   height: 300px;
   border-radius: 10px;
-  background-color: #cccccc;
+  background-color: #f0efef;
   overflow: auto;
   display: flex;
   justify-content: space-around;

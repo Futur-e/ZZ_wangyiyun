@@ -1,10 +1,9 @@
 <template>
  <div class="wenben">
-   <h2 v-show="tit">推荐歌单   &gt;</h2>
    <div class="xiaoimg">
      <div v-for="(item,index) in list" :key="item.id">
        <router-link to="">
-         <img :src="item.picUrl" alt="">
+         <img :src="item.coverImgUrl" alt="">
        </router-link>
        <h4>{{item.name}}</h4>
      </div>
@@ -17,21 +16,19 @@ import {ref} from "vue";
 import {getrecommondList} from "@/api/recommond";
 
 export default {
-  name:'Recommend',
-  props:['list','tit'  ]
+  name:'Xrank',
+  props:['list']
 }
 </script>
 
 <style scoped>
 .wenben{
   width: 1180px;
-  margin: 20px 20px;
 }
 .xiaoimg{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 24px
 }
 .xiaoimg div{
   width: 200px;

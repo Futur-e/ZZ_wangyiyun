@@ -105,7 +105,6 @@ export default {
   display: flex;
   width: 1200px;
   height: 200px;
-  border: 2px solid red;
   border-radius: 20px;
   margin-left: 30px;
   margin-top: 20px;
