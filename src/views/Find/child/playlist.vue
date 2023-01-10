@@ -21,9 +21,9 @@
   <div class="wenben">
     <div class="xiaoimg">
       <div v-for="(item,index) in tagsList" :key="item.id">
-        <router-link to="">
+        <div @click="checkAll(item.id)" style="cursor: pointer">
           <img :src="item.coverImgUrl" alt="">
-        </router-link>
+        </div>
         <h4>{{item.name}}</h4>
       </div>
     </div>
@@ -41,6 +41,7 @@
 <script>
 import {ref} from "vue";
 import {getAllTags, getHotTags, getPlaylist, getTagsList} from "@/api/recommond";
+import router from "@/router";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -82,6 +83,10 @@ export default {
       page.value = val
       getAllTagsList()
     }
+    //跳转到用户页面
+    const checkAll = (id) =>{
+      router.push({name: 'playpage',params:{id}})
+    }
     return{
       playList,
       hotTags,
@@ -89,7 +94,8 @@ export default {
       getTagList,
       tagsList,
       total,
-      currentchange
+      currentchange,
+    checkAll
     }
   }
 
@@ -99,6 +105,7 @@ export default {
 <style scoped>
 .D_box{
   width: 1200px;
+  margin-bottom: 100px;
 }
 .top{
   position: relative;

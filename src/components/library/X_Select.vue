@@ -3,18 +3,20 @@
     <div class="l">
       <img :src="list.coverImgUrl" alt="">
     </div>
+
     <div class="r">
       <div class="listRows"
-           :getlist="getlist(list.id)"
+           v-for="(i,index) in songlist[0]"
+           :key="index"
+           v-show="index<7"
+           @dblclick="getsongUrl(i.id ,index)"
            >
-        <span class="index">1</span>
-        <span class="musicName">{{songAllList[0]}}</span>
-        <span class="singer">1</span>
+        <span class="index">{{index+1}}</span>
+        <span class="musicName">{{i.name}}</span>
+        <span class="singer">{{i.ar[0].name}}</span>
       </div>
-      <div
-      class="checkAll"
-      >
-        查看全部&gt;
+      <div class="checkAll" >
+        <span @click="checkAll(props.list.id)">查看全部&gt;</span>
       </div>
     </div>
   </div>
@@ -22,28 +24,41 @@
 
 <script>
 import {getList} from "@/api/recommond";
-import {nextTick, ref} from "vue";
+import {nextTick, onMounted, provide, ref} from "vue";
+import router from "@/router";
+import {useStore} from "vuex";
+import {getSong} from "@/api/songControl";
 
 export default {
   name:'Xselect',
 props:['list'],
-  setup(){
-    const songList = ref([])
+  setup(props,{emit}){
+    const songlist = ref([])
     const songAllList = ref([])
-    const getsonglist = (id) => {
-      getList(id).then(data=>{
-          songList.value = data.data.playlist.tracks
+    const store = useStore()
+    getList(props.list.id).then((res)=>{
+      songlist.value.push(res.data.playlist.tracks)
+    })
+    const checkAll = (id) => {
+      router.push({name: 'playpage',params:{id}})
+    }
+    //获取歌曲地址的回调
+    const  getsongUrl = (id,index)=>{
+      store.commit('getsongId',songlist.value[0])
+      store.commit('getsongIndex',index)
+      store.commit('altershow')
+      getSong(id).then((res)=>{
+        store.commit('geturl',res.data.data[0].url)
       })
     }
-    const getlist = (id) => {
-      getsonglist(id)
-    }
-      songAllList.value.push(songList)
-    // nextTick(getlist)
+    //
+
     return{
-      songList,
-      getlist,
+      songlist,
+      props,
+      checkAll,
       songAllList,
+      getsongUrl,
     }
   }
 }
@@ -54,7 +69,6 @@ props:['list'],
   margin: 15px 0;
   width: 1180px;
   display: flex;
-  border: 1px solid red;
   justify-content: space-between;
 }
 .l{
@@ -81,7 +95,7 @@ table {
 
 .listRows {
   height: 30px;
-  font-size: 12px;
+  font-size: 14px;
   color: rgb(153, 153, 153);
   width: 100%;
   display: flex;

@@ -2,10 +2,10 @@
  <div class="wenben">
    <h2 v-show="tit">推荐歌单   &gt;</h2>
    <div class="xiaoimg">
-     <div v-for="(item,index) in list" :key="item.id">
-       <router-link to="">
+     <div  v-for="(item,index) in list" :key="item.id" >
+       <div  @click="checkAll(item.id)" style="cursor: pointer">
          <img :src="item.picUrl" alt="">
-       </router-link>
+       </div>
        <h4>{{item.name}}</h4>
      </div>
    </div>
@@ -13,19 +13,28 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import {getrecommondList} from "@/api/recommond";
+import router from "@/router";
 
 export default {
   name:'Recommend',
-  props:['list','tit'  ]
+  props:['list','tit'  ],
+  setup(props){
+    //跳转到专辑详情页面
+    const checkAll = (id) =>{
+      router.push({name: 'playpage',params:{id}})
+    }
+    return{
+      checkAll,
+      props
+    }
+  }
 }
 </script>
 
 <style scoped>
 .wenben{
   width: 1180px;
-  margin: 20px 20px;
+  margin: 0px 20px;
 }
 .xiaoimg{
   display: flex;

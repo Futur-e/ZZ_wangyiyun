@@ -6,7 +6,8 @@
            v-for="(list,index) in ranklist.splice(0,4)"
            :key="index"
       >
-        <Xselect :list="list"></Xselect>
+        <Xselect :list="list"
+        ></Xselect>
       </div>
     </div>
     <div class="world">
@@ -17,18 +18,17 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import {getRankList} from "@/api/recommond";
+import {nextTick, onMounted, ref} from "vue";
+import {getList, getRankList} from "@/api/recommond";
 
 export default {
   name: 'Ranklist',
-  components: {},
 
   setup() {
     const ranklist = ref([])
-    getRankList().then(data => {
-      ranklist.value = data.data.list
-    })
+      getRankList().then(data => {
+        ranklist.value = data.data.list
+      })
     return {
       ranklist
     }
@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .rankingContainer {
-  margin: 20px 20px;
+  margin: 20px 20px 100px 20px;
 }
 
 .title {

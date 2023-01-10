@@ -7,6 +7,7 @@
       <router-view/>
     </el-col>
   </el-row>
+  <XsongControl ></XsongControl>
 </template>
 
 <script>

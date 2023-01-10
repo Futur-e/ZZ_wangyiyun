@@ -5,6 +5,9 @@ import Identify from "@/views/Find/child/identify";
 import Playlist from "@/views/Find/child/playlist";
 import Ranklist from "@/views/Find/child/ranklist";
 import Songer from "@/views/Find/child/songer";
+import playpage from "@/views/play/playpage";
+import userpage from "@/views/play/userpage";
+import Search from "@/views/Search/Search";
 
 
 const routes = [
@@ -15,6 +18,8 @@ const routes = [
     component: home,
     children:[
       {path: '/home',redirect:'/identify'},
+      {path:'/playpage/id=:id',name:'playpage',component:playpage},
+      {path:'/userpage/uid=:uid',name:'userpage',component:userpage},
       {path:'/find',component:Findtop,
       children:[
         {path:'/identify',component:Identify},
@@ -22,6 +27,9 @@ const routes = [
         {path:'/ranklist',component:Ranklist},
         {path:'/songer',component:Songer},
       ]
+      },
+      {
+       path:'/search/searchsongs/keywords=:keywords',component: Search,name:'Search'
       }
     ]
   },

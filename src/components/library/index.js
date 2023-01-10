@@ -7,8 +7,7 @@ export default {
         // 在app上进行扩展，app提供 component directive 函数
         // 如果要挂载原型 app.config.globalProperties 方式
         // app.component(XtxSkeleton.name, XtxSkeleton)
-        // app.component(xtxCarousel.name,XtxCarousel)
-        // app.component(XtxMore.name, XtxMore)
+
 
         // 批量注册全局组件
         importFn.keys().forEach(key => {

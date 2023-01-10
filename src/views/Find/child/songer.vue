@@ -23,7 +23,7 @@
   </div>
   <Xsonger :list="songerList"></Xsonger>
   <el-pagination
-      style="margin: 0 400px"
+      style="margin: 0 400px 100px"
       background
       layout="prev, pager, next"
       @current-change="currentchange"

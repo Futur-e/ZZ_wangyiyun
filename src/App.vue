@@ -6,10 +6,11 @@
 
 <script>
 import HeaderBar from "@/components/headerBar/header";
+import {ref} from "vue";
 
 export default {
   name:"APP",
-  components:{HeaderBar}
+  components:{HeaderBar},
 }
 </script>
 
